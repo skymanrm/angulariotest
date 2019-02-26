@@ -1,0 +1,18 @@
+<mat-card *ngIf="book$ | async as book">
+  <div class="container">
+    <div class="cover">
+      <img [src]="bookCover$ | async" [alt]="book.title">
+    </div>
+    <div>
+      <h1 class="mat-headline">{{book.title}}</h1>
+      <p>{{book.subtitle}}</p>
+      <p class="with-list">by
+        <span *ngFor="let author of book.author_name">{{author}}</span>
+      </p>
+      <p class="with-list">
+        Published <b>{{book.first_publish_year}}</b> by <span *ngFor="let publisher of book.publishers">{{publisher}}</span>
+      </p>
+      <p *ngIf="book.weight">Weight: <b>{{book.weight}}</b></p>
+    </div>
+  </div>
+</mat-card>

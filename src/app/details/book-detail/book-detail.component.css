@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+}
+.cover {
+  margin-right: 40px;
+  width: 337px;
+}
+.authors div {
+  padding-left: 20px;
+}
+.with-list span:after {
+  display: inline-block;
+  content: ',';
+}
+
+.with-list span:last-child:after {
+  content: '';
+}

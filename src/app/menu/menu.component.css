@@ -1,0 +1,13 @@
+.companyName {
+  font-size: 150%;
+}
+
+.header {
+  height: 70px;
+  position: sticky;
+  top: 0;
+}
+
+div {
+  overflow: inherit;
+}

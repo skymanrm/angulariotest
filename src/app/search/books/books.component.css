@@ -1,0 +1,59 @@
+table {
+  width: 100%;
+}
+
+.controls {
+  display: flex;
+  width: 100%;
+  position: sticky;
+  top: 70px;
+}
+
+.controls .mat-form-field {
+  flex-grow: 1;
+}
+
+.book-photo {
+  height: 100px;
+}
+
+.mat-column-first_publish_year {
+  width: 10%;
+  min-width: 130px;
+}
+
+.mat-column-thumbnail {
+  width: 10%;
+  min-width: 130px;
+}
+
+.mat-column-subject {
+  width: 35%;
+  min-width: 200px;
+}
+
+.example-loading-shade {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-row:hover {
+  background-color: rgb(220, 220, 220, .5);
+  cursor: pointer;
+}
+
+.mat-header-cell {
+  top: 134px !important;
+}
+
+.container-padding {
+  padding: 0 20px;
+}
