@@ -4,6 +4,12 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Book, BookDetails} from '../../interfaces/Book';
 import {defaultIfEmpty, first, map, switchMap, take, tap} from 'rxjs/operators';
+import {MatChipInputEvent} from '@angular/material';
+import {DetailsResponse} from 'src/app/interfaces/Responses';
+
+export interface Tag {
+  name: string;
+}
 
 @Component({
   selector: 'app-book-detail',
@@ -11,8 +17,9 @@ import {defaultIfEmpty, first, map, switchMap, take, tap} from 'rxjs/operators';
   styleUrls: ['./book-detail.component.css']
 })
 export class BookDetailComponent implements OnInit {
-  book$: Observable<Book>;
+  details$: Observable<DetailsResponse>;
   bookCover$: Observable<string>;
+  tags: Tag[] = [];
 
   constructor(
     private booksService: BooksService,
@@ -20,22 +27,33 @@ export class BookDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.book$ = this.activatedRoute.parent.paramMap.pipe(
+    this.details$ = this.activatedRoute.parent.paramMap.pipe(
       switchMap((params: ParamMap) =>
-        this.booksService.findBook(
-          params.get('filter'),
-          Number(params.get('pageIndex')),
-          Number(params.get('index'))
-        )
+        this.booksService.getBookDetails(`OLID:${params.get('key')}`)
       )
     );
+  }
 
-    // this.bookCover$ = this.book$.pipe(
-    //   map(value =>
-    //     Array.isArray(value.covers) && value.covers.length > 0
-    //       ? `https://covers.openlibrary.org/b/id/${value.covers[0]}-L.jpg`
-    //       : 'https://via.placeholder.com/300x450'
-    //   ),
-    // );
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.tags.push({name: value.trim()});
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(tag: Tag): void {
+    const index = this.tags.indexOf(tag);
+
+    if (index >= 0) {
+      this.tags.splice(index, 1);
+    }
   }
 }

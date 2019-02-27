@@ -1,11 +1,9 @@
 .companyName {
-  font-size: 150%;
+  font-weight: bold;
 }
 
 .header {
   height: 70px;
-  position: sticky;
-  top: 0;
 }
 
 div {

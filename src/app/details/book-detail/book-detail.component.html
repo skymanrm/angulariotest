@@ -1,18 +1,41 @@
-<mat-card *ngIf="book$ | async as book">
-  <div class="container">
-    <div class="cover">
-      <img [src]="bookCover$ | async" [alt]="book.title">
-    </div>
-    <div>
-      <h1 class="mat-headline">{{book.title}}</h1>
-      <p>{{book.subtitle}}</p>
-      <p class="with-list">by
-        <span *ngFor="let author of book.author_name">{{author}}</span>
-      </p>
-      <p class="with-list">
-        Published <b>{{book.first_publish_year}}</b> by <span *ngFor="let publisher of book.publishers">{{publisher}}</span>
-      </p>
-      <p *ngIf="book.weight">Weight: <b>{{book.weight}}</b></p>
-    </div>
+<div>
+  <div class="example-loading-shade" *ngIf="!(book$ | async)">
+    <mat-spinner></mat-spinner>
   </div>
-</mat-card>
+  <mat-card *ngIf="book$ | async as book">
+    <div class="container">
+      <div class="cover">
+        <img [src]="bookCover$ | async" [alt]="book.title">
+      </div>
+      <div>
+        <h1 class="mat-headline">{{book.title}}</h1>
+        <p>{{book.subtitle}}</p>
+        <p class="with-list">by
+          <span *ngFor="let author of book.authors">{{author.name}}</span>
+        </p>
+        <p class="with-list">
+          Published <b>{{book.first_publish_year}}</b> by <span
+          *ngFor="let publisher of book.publishers">{{publisher}}</span>
+        </p>
+        <p *ngIf="book.weight">Weight: <b>{{book.weight}}</b></p>
+
+        <mat-form-field class="example-chip-list">
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let tag of tags"
+                      [selectable]="true"
+                      [removable]="true"
+                      (removed)="remove(fruit)">
+              {{fruit.name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input
+              placeholder="New tag..."
+              [matChipInputFor]="chipList"
+              (matChipInputTokenEnd)="add($event)"
+            >
+          </mat-chip-list>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card>
+</div>

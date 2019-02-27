@@ -39,7 +39,9 @@ export class BooksDataSource implements DataSource<Book> {
       .subscribe((result) => {
         this.itemsPerPageSubject.next(result.docs.length);
         this.resultsCountSubject.next(result.numFound);
-        this.booksSubject.next(result.docs);
+        this.booksSubject.next(
+          result.docs.map(d => new Book(d))
+        );
       });
   }
 }

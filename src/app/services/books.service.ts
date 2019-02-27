@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {BooksResponse} from '../interfaces/Responses';
-import {map} from 'rxjs/operators';
+import {BooksResponse, DetailsResponse} from '../interfaces/Responses';
+import {map, tap} from 'rxjs/operators';
 import {Book, BookDetails} from '../interfaces/Book';
 
 @Injectable({
@@ -15,19 +15,21 @@ export class BooksService {
     return this.http.get<BooksResponse>(`http://openlibrary.org/search.json?q=${search}&page=${pageIndex + 1}`);
   }
 
-  findBook(search: string, pageIndex: number, resultIndex: number): Observable<Book> {
+  getBook(key: string): Observable<BookDetails> {
     return this.http
-      .get(`http://openlibrary.org/search.json?q=${search}&page=${pageIndex + 1}&limit=1`)
+      .get(`http://openlibrary.org${key}.json`)
       .pipe(
-        map(val => val['docs'][resultIndex])
+        tap(console.log)
       );
   }
 
-  getBookDetails(bookId: string): Observable<BookDetails> {
+  getBookDetails(bookId: string): Observable<DetailsResponse> {
     return this.http
       .get(`https://openlibrary.org/api/books?bibkeys=${bookId}&jscmd=details&format=json`)
       .pipe(
-        map(val => val[bookId].details)
+        map(val => new DetailsResponse(val[bookId].details))
       );
   }
 }
+// http://covers.openlibrary.org/b/olid/OL26092341M-M.jpg
+// http://covers.openlibrary.org/w/olid/OL27448W-M.jpg

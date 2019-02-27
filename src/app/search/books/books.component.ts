@@ -20,8 +20,6 @@ export class BooksComponent implements OnInit, AfterViewInit {
   availableColumns: string[] = ['thumbnail', 'title', 'first_publish_year', 'author_name', 'subject'];
   dataSource: BooksDataSource;
 
-  // filterValue = 'angular';
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -57,15 +55,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
     this.dataSource.loadBooks(this.filterValue.value, pageIndex);
   }
 
-  getBookPhoto(book: Book): string {
-    if (book.cover_i && book.cover_i !== '-1') {
-      return `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
-    }
-    return 'https://via.placeholder.com/100';
-  }
-
-  openBook(book: Book, index: number): void {
-    const { pageIndex } = this.paginator;
-    this.router.navigate(['/book', {filter: this.filterValue.value, index, pageIndex}]);
+  openBook(book: Book): void {
+    this.router.navigate([`/book/`, {key: book.olid()}]);
   }
 }

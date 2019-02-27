@@ -11,6 +11,7 @@ import {
   MatIconModule,
   MatButtonModule,
   MatSidenavModule,
+  MatChipsModule,
 } from '@angular/material';
 
 @NgModule({
@@ -26,6 +27,7 @@ import {
     MatButtonModule,
     MatSidenavModule,
     FlexLayoutModule,
+    MatChipsModule,
   ]
 })
 
