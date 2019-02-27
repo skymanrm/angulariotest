@@ -43,3 +43,7 @@ table {
 .container-padding {
   padding: 0 20px;
 }
+
+.mat-column-thumbnail {
+  text-align: center;
+}

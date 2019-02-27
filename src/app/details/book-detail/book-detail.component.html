@@ -10,7 +10,7 @@
       <div class="info">
         <h1 class="mat-headline">{{details.book.title}}</h1>
         <p>{{details.book.subtitle}}</p>
-        <p class="with-list">by
+        <p class="with-list" *ngIf="details.book.authors">by
           <span *ngFor="let author of details.book.authors">{{author.name}}</span>
         </p>
         <p class="with-list">

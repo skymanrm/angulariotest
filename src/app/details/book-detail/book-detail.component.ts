@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {BooksService} from '../../data/services/books.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Observable} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
+import {first, last, switchMap} from 'rxjs/operators';
 import {MatChipInputEvent} from '@angular/material';
 import {DetailsResponse} from 'src/app/data/Responses';
 import {Tag} from '../../data/Tag';
