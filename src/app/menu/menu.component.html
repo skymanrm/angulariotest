@@ -1,7 +1,7 @@
 <div class="header">
   <mat-toolbar color="primary">
     <div fxShow="true" fxHide.gt-sm="true">
-      <button mat-icon-button (click)="sidenav.toggle()">
+      <button mat-icon-button>
         <mat-icon>menu</mat-icon>
       </button>
     </div>
@@ -9,9 +9,14 @@
       <span>Open Books</span>
     </a>
     <span class="example-spacer"></span>
-    <div fxShow="true" fxHide.lt-md="true">
-      <a mat-button routerLink="/" routerLinkActive="active">Home</a>
-      <a mat-button routerLink="/fav" routerLinkActive="active">Favorite Books</a>
+    <div fxShow="true" fxLayout="row" fxLayoutAlign="space-between center"  fxHide.lt-md="true" style="width: 100%">
+      <div>
+        <a mat-button routerLink="/" routerLinkActive="active">{{ 'Home' | translate }}</a>
+        <a mat-button routerLink="/fav" routerLinkActive="active">{{ 'Favorite Books' | translate }}</a>
+      </div>
+      <div>
+        <a mat-button routerLink="/" routerLinkActive="active" (click)="changeLang()">{{ 'Lang' | translate }}</a>
+      </div>
     </div>
   </mat-toolbar>
 </div>

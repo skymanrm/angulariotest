@@ -8,6 +8,7 @@ import {DetailsResponse} from 'src/app/data/Responses';
 import {Tag} from '../../data/Tag';
 import {BookLocal} from '../../data/Book';
 import {LocalstorageService} from '../../data/services/localstorage.service';
+import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-book-detail',
@@ -17,6 +18,7 @@ import {LocalstorageService} from '../../data/services/localstorage.service';
 export class BookDetailComponent implements OnInit {
   details$: Observable<DetailsResponse>;
   bookLocal: BookLocal;
+  separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
 
   constructor(
     private booksService: BooksService,

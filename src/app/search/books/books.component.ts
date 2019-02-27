@@ -5,6 +5,7 @@ import {MatPaginator, MatSort} from '@angular/material';
 import {BooksDataSource} from './books.datasource';
 import {FormControl} from '@angular/forms';
 import {Book} from '../../data/Book';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-books',
@@ -26,7 +27,8 @@ export class BooksComponent implements OnInit, AfterViewInit {
 
   constructor(
     private booksService: BooksService,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService,
   ) {
   }
 
@@ -34,6 +36,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
     this.dataSource = new BooksDataSource(this.booksService);
     this.loadBooks(0);
     this.displayedColumns.setValue(this.availableColumns);
+    this.translate.use('ru');
   }
 
   ngAfterViewInit(): void {
