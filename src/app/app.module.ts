@@ -25,7 +25,7 @@ import {LocalizationModule} from './localization-module';
     AppRoutingModule,
     LocalizationModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }

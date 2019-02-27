@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
 
 const routes: Routes = [
@@ -12,10 +12,14 @@ const routes: Routes = [
     loadChildren: './details/details.module#DetailsModule',
   },
   {
-    path: '',
+    path: 'search',
     loadChildren: './search/search.module#SearchModule',
-    pathMatch: 'full',
-  }
+  },
+  {
+    path: '',
+    redirectTo: '/search',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({
@@ -25,4 +29,5 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: []
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

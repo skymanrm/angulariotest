@@ -7,15 +7,15 @@
     <ng-container matColumnDef="filters">
       <th mat-header-cell *matHeaderCellDef colspan="5">
         <div class="controls">
-          <mat-form-field>
-            <input matInput (keyup)="applyFilter($event)" [formControl]="filterValue" placeholder="'Filter' | | translate">
+          <mat-form-field floatLabel="always">
+            <input matInput (keyup)="applyFilter($event)" [formControl]="filterValue" [placeholder]="'Filter' | translate">
           </mat-form-field>
           <mat-form-field>
             <mat-select [placeholder]="'Columns' | translate" [formControl]="displayedColumns" multiple>
               <mat-option *ngFor="let c of availableColumns" [value]="c">{{c}}</mat-option>
             </mat-select>
           </mat-form-field>
-           <mat-form-field>
+           <mat-form-field floatLabel="always">
             <input matInput (keyup)="applyFilter($event)" [formControl]="subjectValue" [placeholder]="'Subject' | translate">
           </mat-form-field>
         </div>

@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {CommonModule} from '@angular/common';
+import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
 import {HttpClient} from '@angular/common/http';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
@@ -9,19 +10,29 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  imports: [
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      },
-      isolate: true
-    }),
-  ],
-  exports: [
-    TranslateModule,
-  ]
+    imports: [
+      CommonModule,
+      TranslateModule.forRoot({
+         loader: {
+           provide: TranslateLoader,
+           useFactory: HttpLoaderFactory,
+           deps: [HttpClient],
+         },
+         isolate: false
+       })
+    ],
+    exports: [
+      CommonModule,
+      TranslateModule
+    ]
 })
 
-export class LocalizationModule { }
+export class LocalizationModule {
+  constructor(private translate: TranslateService) {
+      translate.addLangs(['en', 'ru']);
+      translate.setDefaultLang('en');
+
+      const browserLang = translate.getBrowserLang();
+      translate.use(browserLang.match(/en|ru/) ? browserLang : 'en');
+  }
+}
