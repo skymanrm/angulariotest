@@ -9,6 +9,11 @@ table {
 
 .controls .mat-form-field {
   flex-grow: 1;
+  margin-right: 10px;
+}
+
+.controls .mat-form-field:last-child {
+  margin-right: 0;
 }
 
 .book-photo {

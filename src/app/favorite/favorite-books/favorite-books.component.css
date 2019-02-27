@@ -1,0 +1,7 @@
+.mat-list-item {
+  cursor: pointer;
+}
+
+.mat-list-item:hover {
+  background-color: rgba(0, 0, 0, .08);
+}

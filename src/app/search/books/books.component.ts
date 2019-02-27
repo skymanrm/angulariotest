@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
-import {BooksService} from '../../services/books.service';
+import {BooksService} from '../../data/services/books.service';
 import {MatPaginator, MatSort} from '@angular/material';
 import {BooksDataSource} from './books.datasource';
 import {FormControl} from '@angular/forms';
-import {Book} from '../../interfaces/Book';
+import {Book} from '../../data/Book';
 
 @Component({
   selector: 'app-books',
@@ -17,6 +17,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
   pageSize = 100;
   displayedColumns = new FormControl();
   filterValue = new FormControl('lord of the rings');
+  subjectValue = new FormControl('');
   availableColumns: string[] = ['thumbnail', 'title', 'first_publish_year', 'author_name', 'subject'];
   dataSource: BooksDataSource;
 
@@ -52,10 +53,14 @@ export class BooksComponent implements OnInit, AfterViewInit {
       this.paginator.firstPage();
       pageIndex = 0;
     }
-    this.dataSource.loadBooks(this.filterValue.value, pageIndex);
+    this.dataSource.loadBooks(
+      this.filterValue.value,
+      this.subjectValue.value,
+      pageIndex
+    );
   }
 
   openBook(book: Book): void {
-    this.router.navigate([`/book/`, {key: book.olid()}]);
+    this.router.navigate([`/book/`, {key: `OLID:${book.olid()}`}]);
   }
 }

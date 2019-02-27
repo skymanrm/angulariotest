@@ -1,32 +1,32 @@
 <div>
-  <div class="example-loading-shade" *ngIf="!(book$ | async)">
+  <div class="example-loading-shade" *ngIf="!(details$ | async)">
     <mat-spinner></mat-spinner>
   </div>
-  <mat-card *ngIf="book$ | async as book">
+  <mat-card *ngIf="details$ | async as details">
     <div class="container">
       <div class="cover">
-        <img [src]="bookCover$ | async" [alt]="book.title">
+        <img [src]="details.book.cover()" [alt]="details.book.title">
       </div>
-      <div>
-        <h1 class="mat-headline">{{book.title}}</h1>
-        <p>{{book.subtitle}}</p>
+      <div class="info">
+        <h1 class="mat-headline">{{details.book.title}}</h1>
+        <p>{{details.book.subtitle}}</p>
         <p class="with-list">by
-          <span *ngFor="let author of book.authors">{{author.name}}</span>
+          <span *ngFor="let author of details.book.authors">{{author.name}}</span>
         </p>
         <p class="with-list">
-          Published <b>{{book.first_publish_year}}</b> by <span
-          *ngFor="let publisher of book.publishers">{{publisher}}</span>
+          Published <b>{{details.book.first_publish_year}}</b> by <span
+          *ngFor="let publisher of details.book.publishers">{{publisher}}</span>
         </p>
-        <p *ngIf="book.weight">Weight: <b>{{book.weight}}</b></p>
+        <p *ngIf="details.book.weight">Weight: <b>{{details.book.weight}}</b></p>
 
-        <mat-form-field class="example-chip-list">
+        <mat-form-field class="tags-list">
           <mat-chip-list #chipList>
-            <mat-chip *ngFor="let tag of tags"
+            <mat-chip *ngFor="let tag of bookLocal.tags"
                       [selectable]="true"
                       [removable]="true"
-                      (removed)="remove(fruit)">
-              {{fruit.name}}
-              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                      (removed)="remove(tag)">
+              {{tag.name}}
+              <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>
             <input
               placeholder="New tag..."

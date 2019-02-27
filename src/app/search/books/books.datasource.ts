@@ -1,8 +1,8 @@
 import {CollectionViewer, DataSource} from '@angular/cdk/collections';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {BooksService} from '../../services/books.service';
+import {BooksService} from '../../data/services/books.service';
 import {finalize} from 'rxjs/operators';
-import {Book} from '../../interfaces/Book';
+import {Book} from '../../data/Book';
 
 export class BooksDataSource implements DataSource<Book> {
   private booksSubject = new BehaviorSubject<Book[]>([]);
@@ -28,9 +28,9 @@ export class BooksDataSource implements DataSource<Book> {
     this.itemsPerPageSubject.complete();
   }
 
-  loadBooks(search: string, pageIndex = 0) {
+  loadBooks(search: string, subject: string, pageIndex = 0) {
     this.loadingSubject.next(true);
-    this.booksService.findBooks(search, pageIndex)
+    this.booksService.findBooks(search, subject, pageIndex)
       .pipe(
         finalize(() => {
           this.loadingSubject.next(false);

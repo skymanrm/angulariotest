@@ -1,3 +1,8 @@
 <p>
-  favorite-books works!
+  <mat-list>
+    <mat-list-item *ngFor="let b of books" (click)="openBook(b.key)">
+      <h3 matLine>{{b.title}} <button mat-button color="warn" (click)="deleteBook(b.key)">Delete</button></h3>
+      <div matLine>Tags: <span *ngFor="let tag of b.tags; let isLast=last">{{tag.name}}{{isLast ? '' : ', '}}</span></div>
+    </mat-list-item>
+  </mat-list>
 </p>

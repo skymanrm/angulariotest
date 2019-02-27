@@ -8,10 +8,14 @@ export interface BooksResponse {
 }
 
 export class DetailsResponse {
-  bib_key: string;
-  details: BookDetails;
+  bibKey: string;
+  book: BookDetails;
 
   constructor(data: any) {
-    Object.assign(this, humps.camelizeKeys(data));
+    const { details, ...rest } = humps.camelizeKeys(data);
+    Object.assign(this, {
+      book: new BookDetails(details),
+      ...rest,
+    });
   }
 }

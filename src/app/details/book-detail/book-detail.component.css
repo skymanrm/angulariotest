@@ -1,9 +1,17 @@
 .container {
   display: flex;
+  width: 100%;
 }
 .cover {
   margin-right: 40px;
   width: 337px;
+  text-align: center;
+}
+.cover img {
+  width: 100%;
+}
+.info {
+  flex-grow: 1;
 }
 .authors div {
   padding-left: 20px;
@@ -11,8 +19,13 @@
 .with-list span:after {
   display: inline-block;
   content: ',';
+  margin-right: 0.75em;
 }
 
 .with-list span:last-child:after {
   content: '';
+}
+
+.tags-list {
+  width: 100%;
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {MaterialModule} from '../material-module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SearchRoutingModule} from './search-routing.module';
-import {BooksService} from '../services/books.service';
+import {BooksService} from '../data/services/books.service';
 import {BooksComponent} from './books/books.component';
 
 @NgModule({
