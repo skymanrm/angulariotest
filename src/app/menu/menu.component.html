@@ -1,17 +1,23 @@
 <div class="header">
   <mat-toolbar color="primary">
     <div fxShow="true" fxHide.gt-sm="true">
-      <button mat-icon-button>
+      <button mat-icon-button (click)="menuOpened = true">
         <mat-icon>menu</mat-icon>
       </button>
+      <div [className]="getMenuClassname()" (click)="menuOpened = false">
+        <mat-nav-list>
+          <a mat-list-item routerLink="/search">{{ 'Home' | translate }}</a>
+          <a mat-list-item routerLink="/fav">{{ 'Favorite Books' | translate }}</a>
+          <button mat-list-item (click)="changeLang()">{{ 'Lang' | translate }}</button>
+        </mat-nav-list>
+      </div>
     </div>
     <a mat-button class="companyName" routerLink="/">
       <span>Open Books</span>
     </a>
-    <span class="example-spacer"></span>
     <div fxShow="true" fxLayout="row" fxLayoutAlign="space-between center"  fxHide.lt-md="true" style="width: 100%">
       <div>
-        <a mat-button routerLink="/" routerLinkActive="active">{{ 'Home' | translate }}</a>
+        <a mat-button routerLink="/search" routerLinkActive="active">{{ 'Home' | translate }}</a>
         <a mat-button routerLink="/fav" routerLinkActive="active">{{ 'Favorite Books' | translate }}</a>
       </div>
       <div>

@@ -9,8 +9,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class AppComponent {
   title = 'testovoe';
 
-  constructor(translate: TranslateService) {
-    translate.setDefaultLang('en');
-    translate.use('en');
+  constructor() {
+
   }
 }

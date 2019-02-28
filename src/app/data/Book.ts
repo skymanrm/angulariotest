@@ -1,5 +1,4 @@
 import humps from 'humps';
-import {Tag} from './Tag';
 
 export class Book {
   subject: string[];

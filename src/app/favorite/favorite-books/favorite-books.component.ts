@@ -25,10 +25,8 @@ export class FavoriteBooksComponent implements OnInit {
     this.books = this.localstorageService.getAllBooks();
     this.tags = this.books
       .map((book) => book.tags)
-      .reduce((acc, val) => acc.concat(val))
-      .filter((value, index, self) => {
-        return self.indexOf(value) === index;
-      });
+      .reduce((acc, val) => acc.concat(val), [])
+      .filter((value, index, self) => self.indexOf(value) === index);
     this.selectedTags.setValue(this.tags);
   }
 
