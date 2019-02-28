@@ -24,12 +24,4 @@ export class MenuComponent {
     this.translate.use(newLang);
     this.localstorageService.setLang(newLang);
   }
-
-  getMenuClassname(): string {
-    let classname = 'fullscreenmenu mat-calendar-body-selected';
-    if (this.menuOpened) {
-      classname += ' opened';
-    }
-    return classname;
-  }
 }

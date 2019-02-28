@@ -8,11 +8,9 @@ export class BooksDataSource implements DataSource<Book> {
   private booksSubject = new BehaviorSubject<Book[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
   private resultsCountSubject = new BehaviorSubject<number>(0);
-  private itemsPerPageSubject = new BehaviorSubject<number>(0);
 
   public loading$ = this.loadingSubject.asObservable();
   public resultsCount$ = this.resultsCountSubject.asObservable();
-  public itemsPerPageSubject$ = this.itemsPerPageSubject.asObservable();
 
   constructor(private booksService: BooksService) {
   }
@@ -25,23 +23,20 @@ export class BooksDataSource implements DataSource<Book> {
     this.booksSubject.complete();
     this.loadingSubject.complete();
     this.resultsCountSubject.complete();
-    this.itemsPerPageSubject.complete();
   }
 
   loadBooks(search: string, subject: string, pageIndex = 0) {
     this.loadingSubject.next(true);
     this.booksService.findBooks(search, subject, pageIndex)
-      .pipe(
-        finalize(() => {
-          this.loadingSubject.next(false);
-        })
-      )
       .subscribe((result) => {
-        this.itemsPerPageSubject.next(result.docs.length);
         this.resultsCountSubject.next(result.numFound);
         this.booksSubject.next(
           result.docs.map(d => new Book(d))
         );
+      }, (err) => {
+        alert(`API returned error: ${err}`);
+      }, () => {
+        this.loadingSubject.next(false);
       });
   }
 }
