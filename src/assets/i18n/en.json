@@ -10,5 +10,10 @@
   "First Publish Year": "First Publish Year",
   "Authors": "Authors",
   "Tags": "Tags",
-  "Delete": "Delete"
+  "Delete": "Delete",
+  "by": "by",
+  "Weight": "Weight",
+  "New tag": "Tags",
+  "Published": "Published",
+  "open": "open"
 }

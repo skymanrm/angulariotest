@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {BooksService} from '../../data/services/books.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Observable} from 'rxjs';
-import {first, last, switchMap} from 'rxjs/operators';
+import {first, last, switchMap, tap} from 'rxjs/operators';
 import {MatChipInputEvent} from '@angular/material';
 import {DetailsResponse} from 'src/app/data/Responses';
-import {Tag} from '../../data/Tag';
 import {BookLocal} from '../../data/Book';
 import {LocalstorageService} from '../../data/services/localstorage.service';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
@@ -30,15 +29,13 @@ export class BookDetailComponent implements OnInit {
     this.details$ = this.activatedRoute.paramMap.pipe(
       switchMap((params: ParamMap) =>
         this.booksService.getBookDetails(params.get('key'))
-      )
+      ),
+      tap((detailsResponse: DetailsResponse) => {
+        this.bookLocal = this.localstorageService.getBook(detailsResponse.bibKey);
+        this.bookLocal.key = detailsResponse.bibKey;
+        this.bookLocal.title = detailsResponse.book.title;
+      })
     );
-    this.activatedRoute.paramMap.subscribe((param) => {
-      this.bookLocal = this.localstorageService.getBook(param.get('key'));
-    });
-    this.details$.subscribe((details) => {
-      this.bookLocal.key = details.bibKey;
-      this.bookLocal.title = details.book.title;
-    });
   }
 
   add(event: MatChipInputEvent): void {
@@ -46,7 +43,7 @@ export class BookDetailComponent implements OnInit {
     const value = event.value;
 
     if ((value || '').trim()) {
-      this.bookLocal.tags.push({name: value.trim()});
+      this.bookLocal.tags.push(value.trim());
     }
 
     if (input) {
@@ -56,13 +53,17 @@ export class BookDetailComponent implements OnInit {
     this.localstorageService.setBook(this.bookLocal);
   }
 
-  remove(tag: Tag): void {
+  remove(tag: string): void {
     const index = this.bookLocal.tags.indexOf(tag);
 
     if (index >= 0) {
       this.bookLocal.tags.splice(index, 1);
     }
 
-    this.localstorageService.setBook(this.bookLocal);
+    if (this.bookLocal.tags.length > 0) {
+      this.localstorageService.setBook(this.bookLocal);
+    } else {
+      this.localstorageService.deleteBook(this.bookLocal.key);
+    }
   }
 }

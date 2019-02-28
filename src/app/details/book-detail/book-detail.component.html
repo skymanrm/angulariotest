@@ -1,7 +1,7 @@
 <div>
-  <div class="example-loading-shade" *ngIf="!(details$ | async)">
-    <mat-spinner></mat-spinner>
-  </div>
+  <!--<div class="example-loading-shade" *ngIf="!(details$ | async)">-->
+  <!--<mat-spinner></mat-spinner>-->
+  <!--</div>-->
   <mat-card *ngIf="details$ | async as details">
     <div class="container">
       <div class="cover">
@@ -9,15 +9,23 @@
       </div>
       <div class="info">
         <h1 class="mat-headline">{{details.book.title}}</h1>
-        <p>{{details.book.subtitle}}</p>
-        <p class="with-list" *ngIf="details.book.authors">by
+        <p><i>{{details.book.subtitle}}</i></p>
+        <p class="with-list" *ngIf="details.book.authors">{{'by' | translate}}
           <span *ngFor="let author of details.book.authors">{{author.name}}</span>
         </p>
         <p class="with-list">
-          Published <b>{{details.book.first_publish_year}}</b> by <span
+          {{'Published'|translate}} <b>{{details.book.publishDate}}</b> {{'by' | translate}} <span
           *ngFor="let publisher of details.book.publishers">{{publisher}}</span>
         </p>
-        <p *ngIf="details.book.weight">Weight: <b>{{details.book.weight}}</b></p>
+        <p *ngIf="details.book.weight">{{'Weight' | translate}}: <b>{{details.book.weight}}</b></p>
+        <div *ngIf="details.book.isbn()">
+          <p>
+            Amazon: <a target="_blank" [href]="details.book.amazonLink()">{{'open'|translate}}</a>
+          </p>
+          <p>
+            Google: <a target="_blank" [href]="details.book.googleLink()">{{'open'|translate}}</a>
+          </p>
+        </div>
 
         <mat-form-field class="tags-list">
           <mat-chip-list #chipList>
@@ -25,11 +33,11 @@
                       [selectable]="true"
                       [removable]="true"
                       (removed)="remove(tag)">
-              {{tag.name}}
-              <mat-icon matChipRemove>cancel</mat-icon>
+              {{tag}}
+              <mat-icon matChipRemove>{{"cancel"|translate}}</mat-icon>
             </mat-chip>
             <input
-              placeholder="New tag..."
+              [placeholder]="'New tag' | translate"
               [matChipInputFor]="chipList"
               (matChipInputTokenEnd)="add($event)"
               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"

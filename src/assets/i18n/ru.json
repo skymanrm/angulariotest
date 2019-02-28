@@ -10,5 +10,10 @@
   "First Publish Year": "Год первой публикации",
   "Authors": "Авторы",
   "Tags": "Теги",
-  "Delete": "Удалить"
+  "Delete": "Удалить",
+  "by": "",
+  "Weight": "Вес",
+  "New tag": "Теги",
+  "Published": "Опубликовано",
+  "open": "открыть"
 }

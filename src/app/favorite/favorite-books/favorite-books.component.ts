@@ -3,7 +3,7 @@ import intersection from 'lodash.intersection';
 import {LocalstorageService} from '../../data/services/localstorage.service';
 import {BookLocal} from '../../data/Book';
 import {Router} from '@angular/router';
-import {Tag} from '../../data/Tag';
+// import {Tag} from '../../data/Tag';
 import {FormControl} from '@angular/forms';
 
 @Component({
@@ -13,7 +13,7 @@ import {FormControl} from '@angular/forms';
 })
 export class FavoriteBooksComponent implements OnInit {
   books: BookLocal[];
-  tags: Tag[];
+  tags: string[];
   selectedTags = new FormControl();
 
   constructor(
@@ -25,13 +25,11 @@ export class FavoriteBooksComponent implements OnInit {
     this.books = this.localstorageService.getAllBooks();
     this.tags = this.books
       .map((book) => book.tags)
-      .reduce((acc, val) => acc.concat(val));
+      .reduce((acc, val) => acc.concat(val))
+      .filter((value, index, self) => {
+        return self.indexOf(value) === index;
+      });
     this.selectedTags.setValue(this.tags);
-  }
-
-  deleteBook(key: string) {
-    this.localstorageService.deleteBook(key);
-    this.books = this.localstorageService.getAllBooks();
   }
 
   openBook(key: string) {

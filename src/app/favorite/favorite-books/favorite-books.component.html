@@ -2,16 +2,16 @@
   <div class="form">
     <mat-form-field>
       <mat-select [placeholder]="'Tags' | translate" [formControl]="selectedTags" multiple>
-        <mat-option *ngFor="let t of tags" [value]="t">{{t.name}}</mat-option>
+        <mat-option *ngFor="let t of tags" [value]="t">{{t}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
   <mat-list>
     <mat-list-item *ngFor="let b of filteredBooks()" (click)="openBook(b.key)">
-      <h3 matLine>{{b.title}}
-        <button mat-button color="warn" (click)="deleteBook(b.key)">{{'Delete' | translate}}</button>
+      <h3 matLine>
+        {{b.title}}
       </h3>
-      <div matLine>{{'Tags' | translate}}: <span *ngFor="let tag of b.tags; let isLast=last">{{tag.name}}{{isLast ? '' : ', '}}</span>
+      <div matLine>{{'Tags' | translate}}: <span *ngFor="let tag of b.tags; let isLast=last">{{tag}}{{isLast ? '' : ', '}}</span>
       </div>
     </mat-list-item>
   </mat-list>

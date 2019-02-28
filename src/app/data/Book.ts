@@ -42,9 +42,11 @@ export class BookDetails {
   subtitle: string;
   numberOfPages: number;
   authors: Author[];
-  publishDate: string;
   publishers: string[];
   weight: string;
+  publishDate: string;
+  isbn10: string[];
+  isbn13: string[];
 
   constructor(data: any) {
     Object.assign(this, humps.camelizeKeys(data));
@@ -57,11 +59,29 @@ export class BookDetails {
     }
     return 'https://via.placeholder.com/300x400';
   }
+
+  isbn(): string {
+    let isbn: string;
+    if (Array.isArray(this.isbn10) && this.isbn10.length > 0) {
+      isbn = this.isbn10[0];
+    } else if (Array.isArray(this.isbn13) && this.isbn13.length > 0) {
+      isbn = this.isbn13[0];
+    }
+    return isbn;
+  }
+
+  amazonLink(): string {
+    return `https://www.amazon.com/gp/product/${this.isbn()}`;
+  }
+
+  googleLink(): string {
+    return `http://books.google.com/books?vid=ISBN${this.isbn()}`;
+  }
 }
 
 export class BookLocal {
   key: string;
-  tags: Tag[] = [];
+  tags: string[] = [];
   title: string;
 
   constructor(data: any) {

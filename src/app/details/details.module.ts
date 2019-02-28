@@ -5,6 +5,7 @@ import {BookDetailComponent} from './book-detail/book-detail.component';
 import {BooksService} from '../data/services/books.service';
 import {MaterialModule} from '../material-module';
 import {LocalstorageService} from '../data/services/localstorage.service';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import {LocalstorageService} from '../data/services/localstorage.service';
     CommonModule,
     MaterialModule,
     DetailsRoutingModule,
+    TranslateModule.forChild({}),
   ],
   providers: [
     BooksService,
