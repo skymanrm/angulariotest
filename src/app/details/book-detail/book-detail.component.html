@@ -1,7 +1,7 @@
 <div>
-  <!--<div class="example-loading-shade" *ngIf="!(details$ | async)">-->
-  <!--<mat-spinner></mat-spinner>-->
-  <!--</div>-->
+  <div class="example-loading-shade" *ngIf="!(details$ | async)">
+    <mat-spinner></mat-spinner>
+  </div>
   <mat-card *ngIf="details$ | async as details">
     <div class="container">
       <div class="cover">

@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {BooksService} from '../../data/services/books.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {Observable} from 'rxjs';
-import {first, last, switchMap, tap} from 'rxjs/operators';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {first, last, share, switchMap, tap} from 'rxjs/operators';
 import {MatChipInputEvent} from '@angular/material';
 import {DetailsResponse} from 'src/app/data/Responses';
 import {BookLocal} from '../../data/Book';
@@ -34,7 +34,8 @@ export class BookDetailComponent implements OnInit {
         this.bookLocal = this.localstorageService.getBook(detailsResponse.bibKey);
         this.bookLocal.key = detailsResponse.bibKey;
         this.bookLocal.title = detailsResponse.book.title;
-      })
+      }),
+      share()
     );
   }
 
