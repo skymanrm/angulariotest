@@ -19,7 +19,7 @@ export class BooksService {
       query += `&subject=${subject}`;
     }
     return this.http.get<BooksResponse>(
-      `http://openlibrary.org/search.json?${query}`
+      `https://openlibrary.org/search.json?${query}`
     );
   }
 
